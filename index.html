@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Election Vote Counter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f4f4f9;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .candidate-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .candidate {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .candidate h3 {
+            margin: 0 0 10px;
+            font-size: 1.2em;
+            color: #2c3e50;
+        }
+        .candidate p {
+            margin: 5px 0;
+            color: #555;
+        }
+        .vote-btn {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .vote-btn:hover {
+            background: #2980b9;
+        }
+        #total-votes {
+            text-align: center;
+            font-size: 1.2em;
+            color: #333;
+            margin-top: 20px;
+            padding: 10px;
+            background: #ecf0f1;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Election Vote Counter</h1>
+    <div class="candidate-list" id="candidate-list"></div>
+    <div id="total-votes">Total Votes Counted: 0</div>
+
+    <script>
+        // List of 18 candidates
+        const candidates = [
+            "Alice Smith", "Bob Johnson", "Carol Williams", "David Brown",
+            "Emma Jones", "Frank Garcia", "Grace Martinez", "Henry Wilson",
+            "Isabella Davis", "James Rodriguez", "Kelly Thomas", "Liam Anderson",
+            "Mia Taylor", "Noah White", "Olivia Clark", "Peter Lewis",
+            "Quinn Walker", "Rachel Young"
+        ];
+
+        // Initialize vote counts
+        let votes = new Array(candidates.length).fill(0);
+        let totalVotes = 0;
+
+        // Get DOM elements
+        const candidateList = document.getElementById('candidate-list');
+        const totalVotesDisplay = document.getElementById('total-votes');
+
+        // Render candidates
+        function renderCandidates() {
+            candidateList.innerHTML = '';
+            candidates.forEach((candidate, index) => {
+                const candidateDiv = document.createElement('div');
+                candidateDiv.className = 'candidate';
+                candidateDiv.innerHTML = `
+                    <h3>${candidate}</h3>
+                    <p>Votes: ${votes[index]}</p>
+                    <button class="vote-btn" onclick="addVote(${index})">Add Vote</button>
+                `;
+                candidateList.appendChild(candidateDiv);
+            });
+            totalVotesDisplay.textContent = `Total Votes Counted: ${totalVotes}`;
+        }
+
+        // Add vote function
+        function addVote(index) {
+            votes[index]++;
+            totalVotes++;
+            renderCandidates();
+        }
+
+        // Initial render
+        renderCandidates();
+    </script>
+</body>
+</html>
