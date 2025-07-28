@@ -3,112 +3,191 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Election Vote Counter</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f4f4f9;
-        }
-        h1 {
-            text-align: center;
-            color: #333;
-        }
-        .candidate-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-        .candidate {
-            background: white;
-            padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            text-align: center;
-        }
-        .candidate h3 {
-            margin: 0 0 10px;
-            font-size: 1.2em;
-            color: #2c3e50;
-        }
-        .candidate p {
-            margin: 5px 0;
-            color: #555;
-        }
-        .vote-btn {
-            background: #3498db;
-            color: white;
-            border: none;
-            padding: 8px 12px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-        .vote-btn:hover {
-            background: #2980b9;
-        }
-        #total-votes {
-            text-align: center;
-            font-size: 1.2em;
-            color: #333;
-            margin-top: 20px;
-            padding: 10px;
-            background: #ecf0f1;
-            border-radius: 8px;
-        }
-    </style>
+    <title>Employee KPI Details Form</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <h1>Election Vote Counter</h1>
-    <div class="candidate-list" id="candidate-list"></div>
-    <div id="total-votes">Total Votes Counted: 0</div>
+    <div class="container">
+        <div class="form-header">
+            <div class="header-icon">
+                <i class="fas fa-chart-line"></i>
+            </div>
+            <h1>Employee KPI Details Form</h1>
+            <p>Complete performance tracking and evaluation</p>
+        </div>
 
-    <script>
-        // List of 18 candidates
-        const candidates = [
-            "Alice Smith", "Bob Johnson", "Carol Williams", "David Brown",
-            "Emma Jones", "Frank Garcia", "Grace Martinez", "Henry Wilson",
-            "Isabella Davis", "James Rodriguez", "Kelly Thomas", "Liam Anderson",
-            "Mia Taylor", "Noah White", "Olivia Clark", "Peter Lewis",
-            "Quinn Walker", "Rachel Young"
-        ];
+        <form id="kpiForm" class="kpi-form">
+            <!-- Personal and Period Details -->
+            <div class="form-section">
+                <div class="section-header">
+                    <i class="fas fa-user"></i>
+                    <h2>Personal and Period Details</h2>
+                </div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="employeeName">Employee Name</label>
+                        <input type="text" id="employeeName" name="employeeName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="employeeId">Employee ID</label>
+                        <input type="text" id="employeeId" name="employeeId" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="periodStart">Reporting Period Start</label>
+                        <input type="date" id="periodStart" name="periodStart" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="periodEnd">Reporting Period End</label>
+                        <input type="date" id="periodEnd" name="periodEnd" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="dataEngTime">% Time on Data Engineering</label>
+                        <div class="percentage-input">
+                            <input type="number" id="dataEngTime" name="dataEngTime" min="0" max="100" step="1">
+                            <span class="percentage-symbol">%</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="frontendDevOpsTime">% Time on Frontend DevOps</label>
+                        <div class="percentage-input">
+                            <input type="number" id="frontendDevOpsTime" name="frontendDevOpsTime" min="0" max="100" step="1">
+                            <span class="percentage-symbol">%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-        // Initialize vote counts
-        let votes = new Array(candidates.length).fill(0);
-        let totalVotes = 0;
+            <!-- Data Engineering-Related Items -->
+            <div class="form-section">
+                <div class="section-header">
+                    <i class="fas fa-database"></i>
+                    <h2>Data Engineering-Related Items</h2>
+                </div>
+                <div class="form-grid">
+                    <div class="form-group full-width">
+                        <label for="dataPipelines">Data Pipelines Worked On</label>
+                        <textarea id="dataPipelines" name="dataPipelines" rows="4" placeholder="List pipelines with details..."></textarea>
+                    </div>
+                    <div class="form-group full-width">
+                        <label for="errorIncidentLog">Error and Incident Log</label>
+                        <textarea id="errorIncidentLog" name="errorIncidentLog" rows="4" placeholder="Number and details of errors/incidents..."></textarea>
+                    </div>
+                    <div class="form-group full-width">
+                        <label for="dataQualityChecks">Data Quality Checks</label>
+                        <textarea id="dataQualityChecks" name="dataQualityChecks" rows="4" placeholder="Results and metrics..."></textarea>
+                    </div>
+                    <div class="form-group full-width">
+                        <label for="jobPerformanceMetrics">Job Performance Metrics</label>
+                        <textarea id="jobPerformanceMetrics" name="jobPerformanceMetrics" rows="4" placeholder="Runtime, retries, etc..."></textarea>
+                    </div>
+                    <div class="form-group full-width">
+                        <label for="slaCompliance">SLA Compliance</label>
+                        <textarea id="slaCompliance" name="slaCompliance" rows="4" placeholder="Uptime, downtimes..."></textarea>
+                    </div>
+                </div>
+            </div>
 
-        // Get DOM elements
-        const candidateList = document.getElementById('candidate-list');
-        const totalVotesDisplay = document.getElementById('total-votes');
+            <!-- Frontend Development-Related Items -->
+            <div class="form-section">
+                <div class="section-header">
+                    <i class="fas fa-code"></i>
+                    <h2>Frontend Development-Related Items</h2>
+                </div>
+                <div class="form-grid">
+                    <div class="form-group full-width">
+                        <label for="featuresCompleted">Features or Tasks Completed</label>
+                        <textarea id="featuresCompleted" name="featuresCompleted" rows="4" placeholder="List features/tasks with details..."></textarea>
+                    </div>
+                    <div class="form-group full-width">
+                        <label for="performanceMetrics">Performance Metrics</label>
+                        <textarea id="performanceMetrics" name="performanceMetrics" rows="4" placeholder="Load times, etc..."></textarea>
+                    </div>
+                    <div class="form-group full-width">
+                        <label for="bugErrorLog">Bug and Error Log</label>
+                        <textarea id="bugErrorLog" name="bugErrorLog" rows="4" placeholder="Number and details..."></textarea>
+                    </div>
+                    <div class="form-group full-width">
+                        <label for="userInteractionData">User Interaction Data</label>
+                        <textarea id="userInteractionData" name="userInteractionData" rows="4" placeholder="Bounce rates, etc..."></textarea>
+                    </div>
+                </div>
+            </div>
 
-        // Render candidates
-        function renderCandidates() {
-            candidateList.innerHTML = '';
-            candidates.forEach((candidate, index) => {
-                const candidateDiv = document.createElement('div');
-                candidateDiv.className = 'candidate';
-                candidateDiv.innerHTML = `
-                    <h3>${candidate}</h3>
-                    <p>Votes: ${votes[index]}</p>
-                    <button class="vote-btn" onclick="addVote(${index})">Add Vote</button>
-                `;
-                candidateList.appendChild(candidateDiv);
-            });
-            totalVotesDisplay.textContent = `Total Votes Counted: ${totalVotes}`;
-        }
+            <!-- DevOps-Related Items -->
+            <div class="form-section">
+                <div class="section-header">
+                    <i class="fas fa-cogs"></i>
+                    <h2>DevOps-Related Items</h2>
+                </div>
+                <div class="form-grid">
+                    <div class="form-group full-width">
+                        <label for="deploymentLog">Deployment Log</label>
+                        <textarea id="deploymentLog" name="deploymentLog" rows="4" placeholder="Number, outcomes..."></textarea>
+                    </div>
+                    <div class="form-group full-width">
+                        <label for="changeCycleDetails">Change and Cycle Details</label>
+                        <textarea id="changeCycleDetails" name="changeCycleDetails" rows="4" placeholder="Lead times, etc..."></textarea>
+                    </div>
+                    <div class="form-group full-width">
+                        <label for="incidentResponseLog">Incident Response Log</label>
+                        <textarea id="incidentResponseLog" name="incidentResponseLog" rows="4" placeholder="Downtimes, test rates..."></textarea>
+                    </div>
+                    <div class="form-group full-width">
+                        <label for="infrastructureMetrics">Infrastructure Metrics</label>
+                        <textarea id="infrastructureMetrics" name="infrastructureMetrics" rows="4" placeholder="Utilization, optimizations..."></textarea>
+                    </div>
+                </div>
+            </div>
 
-        // Add vote function
-        function addVote(index) {
-            votes[index]++;
-            totalVotes++;
-            renderCandidates();
-        }
+            <!-- Additional Items for Holistic Tracking -->
+            <div class="form-section">
+                <div class="section-header">
+                    <i class="fas fa-clipboard-check"></i>
+                    <h2>Additional Items for Holistic Tracking</h2>
+                </div>
+                <div class="form-grid">
+                    <div class="form-group full-width">
+                        <label for="timeAllocationLog">Time Allocation Log</label>
+                        <textarea id="timeAllocationLog" name="timeAllocationLog" rows="4" placeholder="Hours on activities..."></textarea>
+                    </div>
+                    <div class="form-group full-width">
+                        <label for="selfAssessment">Self-Assessment and Feedback</label>
+                        <textarea id="selfAssessment" name="selfAssessment" rows="4" placeholder="Notes, training..."></textarea>
+                    </div>
+                    <div class="form-group full-width">
+                        <label for="supportingEvidence">Supporting Evidence</label>
+                        <textarea id="supportingEvidence" name="supportingEvidence" rows="4" placeholder="Links or descriptions..."></textarea>
+                    </div>
+                </div>
+            </div>
 
-        // Initial render
-        renderCandidates();
-    </script>
+            <div class="form-actions">
+                <button type="button" class="btn-secondary" id="saveBtn">
+                    <i class="fas fa-save"></i>
+                    Save Draft
+                </button>
+                <button type="submit" class="btn-primary">
+                    <i class="fas fa-paper-plane"></i>
+                    Submit Form
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <i class="fas fa-check-circle"></i>
+                <h3>Form Submitted Successfully!</h3>
+            </div>
+            <p>Your KPI details have been submitted for review.</p>
+            <button class="btn-primary" onclick="closeModal()">Close</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
