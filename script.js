@@ -79,20 +79,44 @@ async function handleFormSubmit(e) {
     submitBtn.disabled = true;
     
     try {
-        // Simulate API call
-        await simulateSubmission();
+        // Collect form data
+        const formData = new FormData(form);
+        const formObject = {};
         
-        // Clear draft data
-        localStorage.removeItem('kpiFormDraft');
+        // Convert FormData to regular object
+        for (const [key, value] of formData.entries()) {
+            formObject[key] = value;
+        }
         
-        // Show success modal
-        showSuccessModal();
+        // Send to backend
+        const response = await fetch('/submit-form', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formObject)
+        });
         
-        // Reset form
-        form.reset();
+        const result = await response.json();
+        
+        if (result.success) {
+            // Clear draft data
+            localStorage.removeItem('kpiFormDraft');
+            
+            // Show success modal
+            showSuccessModal();
+            
+            // Reset form
+            form.reset();
+            
+            showNotification('Form submitted and email sent successfully!', 'success');
+        } else {
+            throw new Error(result.message || 'Submission failed');
+        }
         
     } catch (error) {
-        showNotification('Submission failed. Please try again.', 'error');
+        console.error('Submission error:', error);
+        showNotification(error.message || 'Submission failed. Please try again.', 'error');
     } finally {
         // Remove loading state
         submitBtn.classList.remove('loading');
@@ -394,14 +418,7 @@ function getNotificationIcon(type) {
     }
 }
 
-// Simulate form submission
-function simulateSubmission() {
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            resolve({ success: true });
-        }, 2000);
-    });
-}
+
 
 // Close modal when clicking outside
 window.addEventListener('click', function(e) {
@@ -487,6 +504,31 @@ const additionalStyles = `
 .error-message::before {
     content: '⚠';
     font-size: 0.75rem;
+}
+
+.btn-primary.loading {
+    opacity: 0.7;
+    cursor: not-allowed;
+    position: relative;
+}
+
+.btn-primary.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 16px;
+    height: 16px;
+    margin: -8px 0 0 -8px;
+    border: 2px solid transparent;
+    border-top: 2px solid #ffffff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 `;
 
